@@ -13,7 +13,7 @@ import (
 	"net/http"
 )
 
-const connectionString = "mongodb+srv://admin:admin@cluster0.klm1m.mongodb.net/test?retryWrites=true&w=majority"
+const connectionString = "mongodb+srv://xxx:xxx@clustername.xxxx.mongodb.net/dbname?retryWrites=true&w=majority"
 
 const dbName = "test"
 
