@@ -4,10 +4,22 @@ Build on top of this sample go rest api https://morioh.com/p/82b11315afa1.
 
 ## Installation
 
-Not completed yet.
+## DOCKER RUN STEPS
 
-graphql implementation to be added.
+1) BUILD
+docker build -t gotodo-app .
+
+2)RUN
+docker run -p 8080:8080 gotodo-app
+
+Application will be on http://localhost:8080/api/graphql   
+ 
+
+graphql implementation is added.
 https://levelup.gitconnected.com/graphql-with-go-simple-server-tutorial-8678dbba20b9
+
+Swagger implementation will be added.
+Example requests will be added.
 
 ## References
 
