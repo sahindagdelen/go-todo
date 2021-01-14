@@ -9,7 +9,7 @@ Build on top of this sample go rest api https://morioh.com/p/82b11315afa1.
 1) BUILD
 docker build -t gotodo-app .
 
-2)RUN
+2) RUN
 docker run -p 8080:8080 gotodo-app
 
 Application will be on http://localhost:8080/api/graphql   
