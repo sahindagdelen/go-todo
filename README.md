@@ -1,3 +1,9 @@
+![Docker Build Status](https://img.shields.io/docker/build/sahindagdelen/golangtodo?style=for-the-badge)    
+
+![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/sahindagdelen/golangtodo?style=for-the-badge)
+
+![Docker Pulls](https://img.shields.io/docker/pulls/sahindagdelen/golangtodo)
+
 # Go Rest API
 
 Build on top of this sample go rest api https://morioh.com/p/82b11315afa1.
@@ -7,10 +13,13 @@ Build on top of this sample go rest api https://morioh.com/p/82b11315afa1.
 ## DOCKER RUN STEPS
 
 1) BUILD
-docker build -t gotodo-app .
+
+docker build -t sahindagdelen/golangtodo .
+
 
 2) RUN
-docker run -p 8080:8080 gotodo-app
+
+docker run -p 8080:8080 sahindagdelen/golangtodo
 
 Application will be on http://localhost:8080/api/graphql   
  
