@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/sahindagdelen/go-todo/goserver/models"
+	"github.com/sahindagdelen/goserver/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -13,7 +13,7 @@ import (
 	"net/http"
 )
 
-const connectionString = "mongodb+srv://admin:admin@cluster0.klm1m.mongodb.net/test?retryWrites=true&w=majority"
+const connectionString = "mongodb+srv://<admin>:<password>@cluster0.klm1m.mongodb.net/test?retryWrites=true&w=majority"
 
 const dbName = "test"
 

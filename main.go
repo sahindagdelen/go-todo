@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/sahindagdelen/go-todo/goserver/router"
+	"github.com/sahindagdelen/goserver/router"
 	"log"
 	"net/http"
 )

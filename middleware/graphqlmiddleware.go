@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/graphql-go/graphql"
 	"github.com/graphql-go/graphql/language/ast"
-	"github.com/sahindagdelen/go-todo/goserver/models"
+	"github.com/sahindagdelen/goserver/models"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
