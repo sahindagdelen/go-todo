@@ -1,51 +1,74 @@
-![Docker Build Status](https://img.shields.io/docker/build/sahindagdelen/golangtodo?style=for-the-badge)    
+![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/sahindagdelen/golangtodo?style=for-the-badge)
 
 ![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/sahindagdelen/golangtodo?style=for-the-badge)
 
-![Docker Pulls](https://img.shields.io/docker/pulls/sahindagdelen/golangtodo)
+![Docker Pulls](https://img.shields.io/docker/pulls/sahindagdelen/golangtodo?style=for-the-badge)
 
-# Go Rest API
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/sahindagdelen/go-todo?style=for-the-badge)
 
-Build on top of this sample go rest api https://morioh.com/p/82b11315afa1.
+## General info
+
+Restful api for crud operations using golang.
 
 ## Installation
 
-## DOCKER RUN STEPS
+## Docker Run Steps
 
-1) BUILD
+* BUILD
 
-docker build -t sahindagdelen/golangtodo .
+docker build -t *yourdockerhubusername* / *imagenameyouchoose* .
 
+* RUN
 
-2) RUN
+docker run -p 8080:8080 *dockerhubusername* / *imagenameyouchoose*
 
-docker run -p 8080:8080 sahindagdelen/golangtodo
+Application will be on http://localhost:8080/api/graphql
 
-Application will be on http://localhost:8080/api/graphql   
- 
+## Docker Pull
 
-graphql implementation is added.
-https://levelup.gitconnected.com/graphql-with-go-simple-server-tutorial-8678dbba20b9
+docker pull sahindagdelen/golangtodo
 
-Swagger implementation will be added.
-Example requests will be added.
+## Features
 
-## References
+* Golang restful api (CRUD operations)
+* Modularized golang app. (go.mod)
+* Graphql implementation.
+* Dockerized for minimum size.
+
+To-do list:
+
+* Swagger implementation
+* Unit tests
+* Properties file.
+* Clean code refactor.
+
+## Status
+
+Project is: _in progress_ , more features will be developed and integrated into the repo.
+
+## Inspiration
+
+https://morioh.com/p/82b11315afa1
 
 https://github.com/graphql-go/graphql/blob/master/examples/crud/main.go
 
 https://www.bradcypert.com/using-mongos-objectids-with-go-graphql/
 
-post with graphql
 https://github.com/graphql-go/graphql/blob/62a7bb0a9839309631e20fc4ed032cbf00f88544/examples/http-post/main.go#L20
 
-
 https://medium.com/@chemidy/create-the-smallest-and-secured-golang-docker-image-based-on-scratch-4752223b7324
+
+https://levelup.gitconnected.com/graphql-with-go-simple-server-tutorial-8678dbba20b9
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
+
+## Contact
+
+Created by [@sahindagdelen](https://twitter.com/sdgdln) - feel free to contact me!
 
 ## License
 
