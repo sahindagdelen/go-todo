@@ -1,10 +1,10 @@
 package middleware
 
 import (
-	"../models"
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/sahindagdelen/go-todo/goserver/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -13,7 +13,7 @@ import (
 	"net/http"
 )
 
-const connectionString = "mongodb+srv://xxx:xxx@clustername.xxxx.mongodb.net/dbname?retryWrites=true&w=majority"
+const connectionString = "mongodb+srv://admin:admin@cluster0.klm1m.mongodb.net/test?retryWrites=true&w=majority"
 
 const dbName = "test"
 
@@ -42,22 +42,6 @@ func init() {
 	fmt.Println("Collection instance created!")
 }
 
-//func GetOneTask(w http.ResponseWriter, r *http.Request) {
-//	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-//	w.Header().Set("Access-Control-Allow-Origin", "*")
-//	//params := mux.Vars(r)
-//	//payload := getOneTask(params["id"])
-//	payload := executeQuery(r.URL.Query().Get("query"), schema)
-//	json.NewEncoder(w).Encode(payload)
-//}
-//
-//func GetAllTask(w http.ResponseWriter, r *http.Request) {
-//	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-//	w.Header().Set("Access-Control-Allow-Origin", "*")
-//	payload := executeQuery(r.URL.Query().Get("query"), schema)
-//	json.NewEncoder(w).Encode(payload)
-//}
-
 func ExecuteQueryGraphql(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -70,61 +54,6 @@ func ExecuteQueryGraphql(w http.ResponseWriter, r *http.Request) {
 	payload := executeQuery(postData, schema)
 	json.NewEncoder(w).Encode(payload)
 }
-
-//
-//// CreateTask create task route
-//func CreateTask(w http.ResponseWriter, r *http.Request) {
-//	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-//	w.Header().Set("Access-Control-Allow-Origin", "*")
-//	w.Header().Set("Access-Control-Allow-Methods", "POST")
-//	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-//	w.Header().Set("Content-Type", "application/json")
-//	var task models.Todo
-//	_ = json.NewDecoder(r.Body).Decode(&task)
-//	// fmt.Println(task, r.Body)
-//	createOneTask(task)
-//	json.NewEncoder(w).Encode(task)
-//}
-//
-//// TaskComplete update task route
-//func TaskComplete(w http.ResponseWriter, r *http.Request) {
-//
-//	w.Header().Set("Content-Type", "application/x-www-form-urlencoded")
-//	w.Header().Set("Access-Control-Allow-Origin", "*")
-//	w.Header().Set("Access-Control-Allow-Methods", "PUT")
-//	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-//
-//	params := mux.Vars(r)
-//	done, err := strconv.ParseBool(params["done"])
-//	if err != nil {
-//		log.Fatal(err)
-//	}
-//	taskUpdateStatus(params["id"], done)
-//	json.NewEncoder(w).Encode(params["id"])
-//}
-//
-//// DeleteTask delete one task route
-//func DeleteTask(w http.ResponseWriter, r *http.Request) {
-//	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-//	w.Header().Set("Access-Control-Allow-Origin", "*")
-//	w.Header().Set("Access-Control-Allow-Methods", "DELETE")
-//	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-//	params := mux.Vars(r)
-//	deleteOneTask(params["id"])
-//	json.NewEncoder(w).Encode(params["id"])
-//	// json.NewEncoder(w).Encode("Task not found")
-//
-//}
-//
-//// DeleteAllTask delete all tasks route
-//func DeleteAllTask(w http.ResponseWriter, r *http.Request) {
-//	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
-//	w.Header().Set("Access-Control-Allow-Origin", "*")
-//	count := deleteAllTasks()
-//	json.NewEncoder(w).Encode(count)
-//	// json.NewEncoder(w).Encode("Task not found")
-//
-//}
 
 //get all task from DB and return it
 func getAllTask() []models.Todo {
