@@ -8,7 +8,7 @@
 
 ## General info
 
-Restful api for crud operations using golang.
+Restful api for crud operations using golang, mongodb atlas, graphql.
 
 ## Installation
 
@@ -33,7 +33,8 @@ docker pull sahindagdelen/golangtodo
 * Golang restful api (CRUD operations)
 * Modularized golang app. (go.mod)
 * Graphql implementation.
-* Dockerized for minimum size.
+* Docker image size kept at minimum.
+* Mongo DB Atlas used as database.
 
 To-do list:
 
@@ -41,6 +42,7 @@ To-do list:
 * Unit tests
 * Properties file.
 * Clean code refactor.
+* Sample requests.
 
 ## Status
 
