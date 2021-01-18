@@ -30,9 +30,8 @@ docker pull sahindagdelen/golangtodo
 
 ## Features
 
-* Golang restful api (CRUD operations)
+* Golang graphql api (CRUD operations)
 * Modularized golang app. (go.mod)
-* Graphql implementation.
 * Docker image size kept at minimum.
 * Mongo DB Atlas used as database.
 
