@@ -8,7 +8,7 @@
 
 ## General info
 
-Restful api for crud operations using golang, mongodb atlas, graphql.
+Graphql api for crud operations of todo app using golang, mongodb atlas as db.
 
 ## Installation
 
