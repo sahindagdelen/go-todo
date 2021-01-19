@@ -81,11 +81,6 @@ var rootQuery = graphql.NewObject(
 						Type: graphql.String,
 					},
 				},
-				/*
-					curl --location --request POST 'http://localhost:8080/api/graphql' \
-					--header 'Content-Type: application/json' \
-					--data-raw '{ "query": "{ todo(id:\"5ff8b31b0f3e6c816ed77838\") { id status task } }" }'
-				*/
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 					id, ok := p.Args["id"].(string)
 					if ok {
@@ -97,11 +92,6 @@ var rootQuery = graphql.NewObject(
 			"todolist": &graphql.Field{
 				Type:        graphql.NewList(todoType),
 				Description: "List of todos",
-				/*
-						curl --location --request POST 'http://localhost:8080/api/graphql' \
-					--header 'Content-Type: application/json' \
-					--data-raw '{ "query": "{ todolist{ id status task } }" }'
-				*/
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 					return getAllTask(), nil
 				},
@@ -113,14 +103,6 @@ var rootQuery = graphql.NewObject(
 var rootMutation = graphql.NewObject(graphql.ObjectConfig{
 	Name: "RootMutation",
 	Fields: graphql.Fields{
-		/*
-				curl --location --request POST 'http://localhost:8080/api/graphql' \
-			--header 'Content-Type: application/json' \
-			--data-raw '{
-			    "query": "mutation { createTask(task:\"Golang yaz13\")  }"
-			}'
-		*/
-
 		"createTask": &graphql.Field{
 			Type:        graphql.String, //return type
 			Description: "Create task",
@@ -142,13 +124,6 @@ var rootMutation = graphql.NewObject(graphql.ObjectConfig{
 				return createOneTask(newTask), nil
 			},
 		},
-		/*
-			curl --location --request POST 'http://localhost:8080/api/graphql' \
-			--header 'Content-Type: application/json' \
-			--data-raw '{
-			    "query": "mutation { updateTaskStatus(status:true , id : \"5ff8b31b0f3e6c816ed77838\"  )  }"
-			}'
-		*/
 		"updateTaskStatus": &graphql.Field{
 			Type:        graphql.String,
 			Description: "Update task",
@@ -167,13 +142,6 @@ var rootMutation = graphql.NewObject(graphql.ObjectConfig{
 				return taskUpdateStatus(id, status), nil
 			},
 		},
-		/*
-		   curl --location --request POST 'http://localhost:8080/api/graphql' \
-		   --header 'Content-Type: application/json' \
-		   --data-raw '{
-		       "query": "mutation { deleteTask( id : \"5ffe0d1a45006ab82e126402\"  )  }"
-		   }'
-		*/
 		"deleteTask": &graphql.Field{
 			Type:        graphql.String,
 			Description: "Delete task",
@@ -188,14 +156,6 @@ var rootMutation = graphql.NewObject(graphql.ObjectConfig{
 				return deleteOneTask(id), nil
 			},
 		},
-		/*
-			 curl --location --request POST 'http://localhost:8080/api/graphql' \
-			--header 'Content-Type: application/json' \
-			--data-raw '{
-			    "query": "mutation { deleteAllTasks }"
-			}'
-		*/
-
 		"deleteAllTasks": &graphql.Field{
 			Type:        graphql.String,
 			Description: "Delete all tasks",

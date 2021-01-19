@@ -12,18 +12,6 @@ Graphql api for crud operations of todo app using golang, mongodb atlas as db.
 
 ## Installation
 
-## Docker Run Steps
-
-* BUILD
-
-docker build -t *yourdockerhubusername* / *imagenameyouchoose* .
-
-* RUN
-
-docker run -p 8080:8080 *dockerhubusername* / *imagenameyouchoose*
-
-Application will be on http://localhost:8080/api/graphql
-
 ## Docker Pull
 
 docker pull sahindagdelen/golangtodo
@@ -31,17 +19,25 @@ docker pull sahindagdelen/golangtodo
 ## Features
 
 * Golang graphql api (CRUD operations)
+* Graphiql implementation added. (http://localhost:8080/api/graphiql)
 * Modularized golang app. (go.mod)
 * Docker image size kept at minimum.
 * Mongo DB Atlas used as database.
 
 To-do list:
 
-* Swagger implementation
-* Unit tests
 * Properties file.
 * Clean code refactor.
 * Sample requests.
+
+## Screenshots
+
+![Screenshot](/screenshots/getAllTasks.png?raw=true "Get all tasks")
+![Screenshot](/screenshots/getOneTask.png?raw=true "Get task" )
+![Screenshot](/screenshots/createTask.png?raw=true "Create Task")
+![Screenshot](/screenshots/updateTaskStatus.png?raw=true "Update task status")
+![Screenshot](/screenshots/deleteTask.png?raw=true "Delete task")
+![Screenshot](/screenshots/deleteAllTasks.png?raw=true "Delete all tasks")
 
 ## Status
 
