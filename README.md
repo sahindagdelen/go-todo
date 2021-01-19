@@ -16,6 +16,11 @@ Graphql api for crud operations of todo app using golang, mongodb atlas as db.
 
 docker pull sahindagdelen/golangtodo
 
+MongoDb Atlas configuration :
+Mongodb connection string must be modified with username and password. <admin>, <password> 
+Dns errors might occur when running application, cd /etc  sudo resolv.conf  modify your dns to 8.8.8.8
+You should also add your ip to whitelist on mongodb atlas admin panel network access tab.
+
 ## Features
 
 * Golang graphql api (CRUD operations)
@@ -26,9 +31,8 @@ docker pull sahindagdelen/golangtodo
 
 To-do list:
 
-* Properties file.
+* Properties file.(Mongodb atlas configuration will be moved to properties file and read from there)
 * Clean code refactor.
-* Sample requests.
 
 ## Screenshots
 
