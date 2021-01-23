@@ -12,9 +12,14 @@ Graphql api for crud operations of todo app using golang, mongodb atlas as db.
 
 ## Installation
 
-## Docker Pull
+## Docker Instructions
 
 docker pull sahindagdelen/golangtodo
+
+or
+
+docker build -f ./build/package/Dockerfile .
+docker tag <ImageId> sahindagdelen/golangtodo
 
 MongoDb Atlas configuration :
 Mongodb connection string must be modified with username and password. <admin>, <password> 
@@ -26,7 +31,9 @@ You should also add your ip to whitelist on mongodb atlas admin panel network ac
 * Golang graphql api (CRUD operations)
 * Graphiql implementation added. (http://localhost:8080/api/graphiql)
 * Modularized golang app. (go.mod)
+* Package structure edited complying with golang package structure standarts.
 * Docker image size kept at minimum.
+* Multistage docker file.
 * Mongo DB Atlas used as database.
 
 To-do list:
@@ -36,12 +43,12 @@ To-do list:
 
 ## Screenshots
 
-![Screenshot](/screenshots/getAllTasks.png?raw=true "Get all tasks")
-![Screenshot](/screenshots/getOneTask.png?raw=true "Get task" )
-![Screenshot](/screenshots/createTask.png?raw=true "Create Task")
-![Screenshot](/screenshots/updateTaskStatus.png?raw=true "Update task status")
-![Screenshot](/screenshots/deleteTask.png?raw=true "Delete task")
-![Screenshot](/screenshots/deleteAllTasks.png?raw=true "Delete all tasks")
+![Screenshot](/examples/screenshots/getAllTasks.png?raw=true "Get all tasks")
+![Screenshot](/examples/screenshots/getOneTask.png?raw=true "Get task" )
+![Screenshot](/examples/screenshots/createTask.png?raw=true "Create Task")
+![Screenshot](/examples/screenshots/updateTaskStatus.png?raw=true "Update task status")
+![Screenshot](/examples/screenshots/deleteTask.png?raw=true "Delete task")
+![Screenshot](/examples/screenshots/deleteAllTasks.png?raw=true "Delete all tasks")
 
 ## Status
 
@@ -61,6 +68,11 @@ https://medium.com/@chemidy/create-the-smallest-and-secured-golang-docker-image-
 
 https://levelup.gitconnected.com/graphql-with-go-simple-server-tutorial-8678dbba20b9
 
+https://medium.com/@benbjohnson/structuring-tests-in-go-46ddee7a25c
+
+https://medium.com/@matryer/5-simple-tips-and-tricks-for-writing-unit-tests-in-golang-619653f90742
+
+https://medium.com/golang-learn/go-project-layout-e5213cdcfaa2
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

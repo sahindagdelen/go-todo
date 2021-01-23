@@ -1,4 +1,4 @@
-module github.com/sahindagdelen/goserver
+module github.com/sahindagdelen/go-todo
 
 go 1.16
 

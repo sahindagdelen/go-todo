@@ -1,10 +1,11 @@
-package middleware
+package server
 
 import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/sahindagdelen/goserver/models"
+	"github.com/sahindagdelen/go-todo/api/types/postdata"
+	"github.com/sahindagdelen/go-todo/api/types/todo"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
@@ -13,7 +14,7 @@ import (
 	"net/http"
 )
 
-const connectionString = "mongodb+srv://<admin>:<password>@cluster0.klm1m.mongodb.net/test?retryWrites=true&w=majority"
+const connectionString = "mongodb+srv://<username>:<password>@cluster0.klm1m.mongodb.net/test?retryWrites=true&w=majority"
 
 const dbName = "test"
 
@@ -46,7 +47,7 @@ func ExecuteQueryGraphql(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Context-Type", "application/x-www-form-urlencoded")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
-	var postData models.PostData
+	var postData postdata.PostData
 	if err := json.NewDecoder(r.Body).Decode(&postData); err != nil {
 		w.WriteHeader(400)
 		return
@@ -56,15 +57,15 @@ func ExecuteQueryGraphql(w http.ResponseWriter, r *http.Request) {
 }
 
 //get all task from DB and return it
-func getAllTask() []models.Todo {
+func getAllTask() []todo.Todo {
 	cur, err := collection.Find(context.Background(), bson.D{{}})
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	var results []models.Todo
+	var results []todo.Todo
 	for cur.Next(context.Background()) {
-		var result models.Todo
+		var result todo.Todo
 		e := cur.Decode(&result)
 		if e != nil {
 			log.Fatal(e)
@@ -80,7 +81,7 @@ func getAllTask() []models.Todo {
 	return results
 }
 
-func getOneTask(task string) models.Todo {
+func getOneTask(task string) todo.Todo {
 	fmt.Println(task)
 	id, _ := primitive.ObjectIDFromHex(task)
 	filter := bson.M{"_id": id}
@@ -89,7 +90,7 @@ func getOneTask(task string) models.Todo {
 	if cur.Err() != nil {
 		log.Fatal(cur.Err())
 	}
-	var result models.Todo
+	var result todo.Todo
 	e := cur.Decode(&result)
 	if e != nil {
 		log.Fatal(e)
@@ -97,7 +98,7 @@ func getOneTask(task string) models.Todo {
 	return result
 }
 
-func createOneTask(task models.Todo) string {
+func createOneTask(task todo.Todo) string {
 	insertResult, err := collection.InsertOne(context.Background(), task)
 	if err != nil {
 		log.Fatal(err)

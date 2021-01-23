@@ -1,10 +1,11 @@
-package middleware
+package server
 
 import (
 	"fmt"
 	"github.com/graphql-go/graphql"
 	"github.com/graphql-go/graphql/language/ast"
-	"github.com/sahindagdelen/goserver/models"
+	"github.com/sahindagdelen/go-todo/api/types/postdata"
+	"github.com/sahindagdelen/go-todo/api/types/todo"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -25,7 +26,7 @@ var todoType = graphql.NewObject(
 	},
 )
 
-var TodoList []models.Todo
+var TodoList []todo.Todo
 
 var ObjectID = graphql.NewScalar(graphql.ScalarConfig{
 	Name:        "BSON",
@@ -86,7 +87,7 @@ var rootQuery = graphql.NewObject(
 					if ok {
 						return getOneTask(id), nil
 					}
-					return models.Todo{}, nil
+					return todo.Todo{}, nil
 				},
 			},
 			"todolist": &graphql.Field{
@@ -116,7 +117,7 @@ var rootMutation = graphql.NewObject(graphql.ObjectConfig{
 				//marshall and cast the argument value
 				task := params.Args["task"].(string)
 				//perform mutation  create a new task save
-				newTask := models.Todo{
+				newTask := todo.Todo{
 					ID:     primitive.NewObjectID(),
 					Task:   task,
 					Status: false,
@@ -172,7 +173,7 @@ var schema, _ = graphql.NewSchema(
 		Mutation: rootMutation,
 	})
 
-func executeQuery(postData models.PostData, schema graphql.Schema) *graphql.Result {
+func executeQuery(postData postdata.PostData, schema graphql.Schema) *graphql.Result {
 	result := graphql.Do(graphql.Params{
 		Schema:         schema,
 		RequestString:  postData.Query,

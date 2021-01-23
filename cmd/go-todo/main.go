@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/sahindagdelen/goserver/router"
+	"github.com/sahindagdelen/go-todo/api/server"
 	"log"
 	"net/http"
 )
 
 func main() {
-	r := router.Router()
+	r := server.Router()
 	fmt.Println("Starting server on the port 8080")
 	log.Fatal(http.ListenAndServe(":8080", r))
 }
