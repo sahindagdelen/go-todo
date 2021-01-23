@@ -30,7 +30,7 @@ RUN go mod verify
 
 
 COPY . .
-COPY /cmd/go-todo/ .
+COPY /cmd/go-todo .
 # Build the binary
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /go/cmd/go-todo
 
