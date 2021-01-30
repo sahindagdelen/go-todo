@@ -85,7 +85,7 @@ var rootQuery = graphql.NewObject(
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
 					id, ok := p.Args["id"].(string)
 					if ok {
-						return getOneTask(id), nil
+						return getOneTask(getCollection(), id)
 					}
 					return todo.Todo{}, nil
 				},
@@ -94,7 +94,7 @@ var rootQuery = graphql.NewObject(
 				Type:        graphql.NewList(todoType),
 				Description: "List of todos",
 				Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-					return getAllTask(), nil
+					return getAllTask(getCollection())
 				},
 			},
 		},
@@ -122,7 +122,7 @@ var rootMutation = graphql.NewObject(graphql.ObjectConfig{
 					Task:   task,
 					Status: false,
 				}
-				return createOneTask(newTask), nil
+				return createOneTask(getCollection(), newTask)
 			},
 		},
 		"updateTaskStatus": &graphql.Field{
@@ -140,7 +140,7 @@ var rootMutation = graphql.NewObject(graphql.ObjectConfig{
 			Resolve: func(params graphql.ResolveParams) (interface{}, error) {
 				status := params.Args["status"].(bool)
 				id := params.Args["id"].(string)
-				return taskUpdateStatus(id, status), nil
+				return updateTaskStatus(getCollection(), id, status)
 			},
 		},
 		"deleteTask": &graphql.Field{
@@ -154,14 +154,14 @@ var rootMutation = graphql.NewObject(graphql.ObjectConfig{
 
 			Resolve: func(params graphql.ResolveParams) (interface{}, error) {
 				id := params.Args["id"].(string)
-				return deleteOneTask(id), nil
+				return deleteOneTask(getCollection(), id)
 			},
 		},
 		"deleteAllTasks": &graphql.Field{
 			Type:        graphql.String,
 			Description: "Delete all tasks",
 			Resolve: func(p graphql.ResolveParams) (interface{}, error) {
-				return deleteAllTasks(), nil
+				return deleteAllTasks(getCollection())
 			},
 		},
 	},

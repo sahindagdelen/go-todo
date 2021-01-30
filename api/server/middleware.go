@@ -6,12 +6,15 @@ import (
 	"fmt"
 	"github.com/sahindagdelen/go-todo/api/types/postdata"
 	"github.com/sahindagdelen/go-todo/api/types/todo"
+	"github.com/sahindagdelen/go-todo/test/types"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
+	"go.mongodb.org/mongo-driver/mongo/readpref"
 	"log"
 	"net/http"
+	"time"
 )
 
 const connectionString = "mongodb+srv://<username>:<password>@cluster0.klm1m.mongodb.net/test?retryWrites=true&w=majority"
@@ -20,27 +23,25 @@ const dbName = "test"
 
 const collectionName = "todolist"
 
-var collection *mongo.Collection
-
-func init() {
-	clientOptions := options.Client().ApplyURI(connectionString)
-
-	client, err := mongo.Connect(context.TODO(), clientOptions)
-
+func getCollection() *mongo.Collection {
+	client, err := mongo.NewClient(options.Client().ApplyURI(connectionString))
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	err = client.Ping(context.TODO(), nil)
-
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	err = client.Connect(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	defer client.Disconnect(ctx)
+	err = client.Ping(ctx, readpref.Primary())
+	if err != nil {
+		log.Fatal(err)
+	}
 	fmt.Println("Connected to MongoDB")
-	collection = client.Database(dbName).Collection(collectionName)
-
+	collection := client.Database(dbName).Collection(collectionName)
 	fmt.Println("Collection instance created!")
+	return collection
 }
 
 func ExecuteQueryGraphql(w http.ResponseWriter, r *http.Request) {
@@ -57,86 +58,75 @@ func ExecuteQueryGraphql(w http.ResponseWriter, r *http.Request) {
 }
 
 //get all task from DB and return it
-func getAllTask() []todo.Todo {
-	cur, err := collection.Find(context.Background(), bson.D{{}})
-	if err != nil {
-		log.Fatal(err)
-	}
-
+func getAllTask(collection types.CrudInterface) ([]todo.Todo, error) {
 	var results []todo.Todo
-	for cur.Next(context.Background()) {
-		var result todo.Todo
-		e := cur.Decode(&result)
-		if e != nil {
-			log.Fatal(e)
-		}
-		results = append(results, result)
+	ctx := context.Background()
+	cur, err := collection.Find(ctx, bson.M{})
+	if err != nil {
+		return results, err
 	}
-
-	if err := cur.Err(); err != nil {
-		log.Fatal(err)
+	err = cur.All(ctx, &results)
+	if err != nil {
+		return results, err
 	}
-
-	cur.Close(context.Background())
-	return results
+	return results, err
 }
 
-func getOneTask(task string) todo.Todo {
+func getOneTask(collection types.CrudInterface, task string) (todo.Todo, error) {
 	fmt.Println(task)
 	id, _ := primitive.ObjectIDFromHex(task)
 	filter := bson.M{"_id": id}
 
 	cur := collection.FindOne(context.Background(), filter)
 	if cur.Err() != nil {
-		log.Fatal(cur.Err())
+		return todo.Todo{}, cur.Err()
 	}
 	var result todo.Todo
 	e := cur.Decode(&result)
 	if e != nil {
-		log.Fatal(e)
+		return todo.Todo{}, e
 	}
-	return result
+	return result, e
 }
 
-func createOneTask(task todo.Todo) string {
-	insertResult, err := collection.InsertOne(context.Background(), task)
+func createOneTask(collection types.CrudInterface, todo todo.Todo) (*mongo.InsertOneResult, error) {
+	insertResult, err := collection.InsertOne(context.Background(), todo)
 	if err != nil {
-		log.Fatal(err)
+		return insertResult, err
 	}
-	return fmt.Sprintf("Created document id, %s ", insertResult.InsertedID.(primitive.ObjectID).String())
+	return insertResult, err
 }
 
-func taskUpdateStatus(task string, done bool) string {
+func updateTaskStatus(collection types.CrudInterface, task string, done bool) (*mongo.UpdateResult, error) {
 	fmt.Println(task)
 	id, _ := primitive.ObjectIDFromHex(task)
 	filter := bson.M{"_id": id}
 	update := bson.M{"$set": bson.M{"status": done}}
 	result, err := collection.UpdateOne(context.Background(), filter, update)
 	if err != nil {
-		log.Fatal(err)
+		return result, err
 	}
 	fmt.Println("modified count : ", result.ModifiedCount)
-	return fmt.Sprintf("modified count :  %d", result.ModifiedCount)
+	return result, err
 }
 
-func deleteOneTask(task string) string {
+func deleteOneTask(collection types.CrudInterface, task string) (*mongo.DeleteResult, error) {
 	fmt.Println(task)
 	id, _ := primitive.ObjectIDFromHex(task)
 	filter := bson.M{"_id": id}
 	d, err := collection.DeleteOne(context.Background(), filter)
 	if err != nil {
-		log.Fatal(err)
+		return d, err
 	}
-
 	fmt.Println("Deleted document", d.DeletedCount)
-	return fmt.Sprintf("Deleted %d document", d.DeletedCount)
+	return d, err
 }
 
-func deleteAllTasks() string {
+func deleteAllTasks(collection types.CrudInterface) (*mongo.DeleteResult, error) {
 	d, err := collection.DeleteMany(context.Background(), bson.D{{}}, nil)
 	if err != nil {
-		log.Fatal(err)
+		return d, err
 	}
-	fmt.Println("Deleted Document %s", d.DeletedCount)
-	return fmt.Sprintf("Deleted %d documents", d.DeletedCount)
+	fmt.Println("Deleted document", d.DeletedCount)
+	return d, err
 }
