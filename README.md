@@ -6,8 +6,7 @@
 
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/sahindagdelen/go-todo?style=for-the-badge)
 
-![example workflow file path](https://github.com/actions/go-todo/workflows/.github/workflows/go.yml/badge.svg)
-
+![Go](https://github.com/sahindagdelen/go-todo/workflows/Go/badge.svg?branch=master)
 
 
 ## General info
