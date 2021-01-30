@@ -16,10 +16,6 @@ Graphql api for crud operations of todo app using golang, mongodb atlas as db.
 
 docker pull sahindagdelen/golangtodo
 
-or
-
-docker build -f ./build/package/Dockerfile .
-docker tag <ImageId> sahindagdelen/golangtodo
 
 MongoDb Atlas configuration :
 Mongodb connection string must be modified with username and password. <admin>, <password> 
