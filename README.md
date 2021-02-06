@@ -8,7 +8,6 @@
 
 ![Go](https://github.com/sahindagdelen/go-todo/workflows/Go/badge.svg?branch=master)
 
-
 ## General info
 
 Graphql api for crud operations of todo app using golang, mongodb atlas as db.
@@ -19,11 +18,10 @@ Graphql api for crud operations of todo app using golang, mongodb atlas as db.
 
 docker pull sahindagdelen/golangtodo
 
-
 MongoDb Atlas configuration :
-Mongodb connection string must be modified with username and password. <admin>, <password> 
-Dns errors might occur when running application, cd /etc  sudo resolv.conf  modify your dns to 8.8.8.8
-You should also add your ip to whitelist on mongodb atlas admin panel network access tab.
+Mongodb connection string must be modified with username and password. <admin>, <password>
+Dns errors might occur when running application, cd /etc sudo resolv.conf modify your dns to 8.8.8.8 You should also add
+your ip to whitelist on mongodb atlas admin panel network access tab.
 
 ## Features
 
@@ -34,10 +32,10 @@ You should also add your ip to whitelist on mongodb atlas admin panel network ac
 * Docker image size kept at minimum.
 * Multistage docker file.
 * Mongo DB Atlas used as database.
+* Properties read from config file.
 
 To-do list:
 
-* Properties file.(Mongodb atlas configuration will be moved to properties file and read from there)
 * Clean code refactor.
 
 ## Screenshots
@@ -74,6 +72,7 @@ https://medium.com/@matryer/5-simple-tips-and-tricks-for-writing-unit-tests-in-g
 https://medium.com/golang-learn/go-project-layout-e5213cdcfaa2
 
 https://github.com/motty93/Golang/tree/424e25c26b2313ef991552b9d978426b7caa417b/youtube/mongo_unit_test
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
