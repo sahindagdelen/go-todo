@@ -6,40 +6,34 @@ import (
 	"fmt"
 	"github.com/sahindagdelen/go-todo/api/types/postdata"
 	"github.com/sahindagdelen/go-todo/api/types/todo"
+	"github.com/sahindagdelen/go-todo/config"
 	"github.com/sahindagdelen/go-todo/test/types"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.mongodb.org/mongo-driver/mongo/readpref"
 	"log"
 	"net/http"
-	"time"
 )
 
-const connectionString = "mongodb+srv://<username>:<password>@cluster0.klm1m.mongodb.net/test?retryWrites=true&w=majority"
-
-const dbName = "test"
-
-const collectionName = "todolist"
+func prepareConnectionString() string {
+	const connectionStringFormat = "mongodb+srv://%s:%s@%s/%s?retryWrites=true&w=majority"
+	return fmt.Sprintf(connectionStringFormat, config.Config.Database.Username, config.Config.Database.Password, config.Config.Database.Host, config.Config.Database.Name)
+}
 
 func getCollection() *mongo.Collection {
-	client, err := mongo.NewClient(options.Client().ApplyURI(connectionString))
+	connectionString := prepareConnectionString()
+	clientOptions := options.Client().ApplyURI(connectionString)
+	client, err := mongo.Connect(context.TODO(), clientOptions)
 	if err != nil {
 		log.Fatal(err)
 	}
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-	err = client.Connect(ctx)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer client.Disconnect(ctx)
-	err = client.Ping(ctx, readpref.Primary())
+	err = client.Ping(context.TODO(), nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println("Connected to MongoDB")
-	collection := client.Database(dbName).Collection(collectionName)
+	collection := client.Database(config.Config.Database.Name).Collection(config.Config.Database.Collection)
 	fmt.Println("Collection instance created!")
 	return collection
 }

@@ -1,0 +1,6 @@
+database:
+  host: cluster0.klm1m.mongodb.net
+  name: test
+  collection: todolist
+  username: <username>
+  password: <password>
